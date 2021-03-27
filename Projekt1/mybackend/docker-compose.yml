@@ -1,0 +1,49 @@
+version: "3.9"
+services: 
+ myredis:
+  container_name: myredis
+  networks:
+   - mymulticont
+  image: redis:alpine
+  volumes:
+   - data_redis:/data
+
+ mypostgres:
+  container_name: mypostgres
+  networks: 
+   - mymulticont
+  volumes:
+   - data:/var/lib/postgresql/data
+  environment: 
+   POSTGRES_PASSWORD: 1qaz2wsx
+  image: postgres:alpine
+
+ mybackend:
+  container_name: mybackend
+  networks:
+   - mymulticont
+  build: .
+  ports:
+   - 8090:5000
+  depends_on:
+   - mypostgres
+   - myredis
+  image: januszsch/mybackend:latest
+
+
+
+networks:
+ mymulticont:
+  name: mymulticont
+
+volumes:
+  data:
+   name: data
+  data_redis:
+   name: data_redis
+
+# docker-compose --project-name przepisy up
+# docker-compose --project-name przepisy down
+# lub
+# docker-compose up
+# docker-compose down
