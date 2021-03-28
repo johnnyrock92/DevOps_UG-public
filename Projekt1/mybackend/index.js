@@ -31,7 +31,7 @@ const pgClient = new Pool({
     password: "1qaz2wsx",
     database: "postgres",
     host: "mypostgres",
-    port: "5432"
+    port: 5432
 });
 
 pgClient.on('error', () => {
@@ -51,7 +51,15 @@ pgClient.query('CREATE TABLE IF NOT EXISTS przepisy (id UUID UNIQUE, nazwa VARCH
 
 // curl --request GET localhost:8090
 app.get("/", (req, res) => {
-    res.send(`Witaj świecie!`);
+    pgClient.query('SELECT * FROM przepisy;', (err, respg) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            const dane = respg.rows;
+            console.log('Postgres: Odczytano listę przepisów');
+            res.send(dane)
+        }
+    });
 });
 
 // curl --request GET localhost:8090/przepisy/fe8c0642-92e4-497c-9e5f-0f4c31545351

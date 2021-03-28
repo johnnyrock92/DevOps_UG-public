@@ -6,14 +6,14 @@ services:
    - mymulticont
   image: redis:alpine
   volumes:
-   - data_redis:/data
+   - redisdata:/data
 
  mypostgres:
   container_name: mypostgres
   networks: 
    - mymulticont
   volumes:
-   - data:/var/lib/postgresql/data
+   - postgresdata:/var/lib/postgresql/data
   environment: 
    POSTGRES_PASSWORD: 1qaz2wsx
   image: postgres:alpine
@@ -28,6 +28,7 @@ services:
   depends_on:
    - mypostgres
    - myredis
+  command: ["./wait-for-postgres.sh", "mypostgres", "node", "index.js"]
   image: januszsch/mybackend:latest
 
 
@@ -37,10 +38,10 @@ networks:
   name: mymulticont
 
 volumes:
-  data:
-   name: data
-  data_redis:
-   name: data_redis
+ postgresdata:
+  name: postgresdata
+ redisdata:
+  name: redisdata
 
 # docker-compose --project-name przepisy up
 # docker-compose --project-name przepisy down
