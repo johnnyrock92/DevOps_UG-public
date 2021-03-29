@@ -18,7 +18,7 @@ services:
             context: ./mybackend
         volumes: 
             - /opt/app/node_modules
-            - C:/Users/janus/Documents/GitHub/DevOps_UG-public/Laboratorium/Lab4/mybackend:/opt/app
+            - C:/Users/janus/Documents/GitHub/DevOps_UG-public/Laboratorium/Lab4/web-api-dev/mybackend:/opt/app
         environment: 
             - POSTGRES_PASSWORD=1qaz2wsx
             - POSTGRES_DB=myappdb
