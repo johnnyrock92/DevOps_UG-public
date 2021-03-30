@@ -19,10 +19,13 @@ services:
   image: postgres:alpine
 
  mybackend:
+  restart: always
   container_name: mybackend
   networks:
    - mymulticont
-  build: .
+  build:
+   dockerfile: Dockerfile
+   context: ./mybackend
   ports:
    - 8090:5000
   depends_on:
