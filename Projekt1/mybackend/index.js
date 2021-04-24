@@ -74,7 +74,7 @@ app.get("/przepisy/:id", (req, res) => {
                     console.log(err.stack)
                 } else {
                     const dane = resredis
-                    console.log(`REDIS: Odczytano przepis - ${dane.nazwa}`)
+                    console.log(`REDIS: Odczytano przepis - ${dane.nazwa}`);
                     res.send(resredis);
                 }
             });
@@ -98,8 +98,26 @@ app.get("/przepisy/:id", (req, res) => {
     
 });
 
+
+app.put("/przepisy/edytuj/:id", (req, res) => {
+    const id = req.params.id;
+    const dane = req.body;
+
+    redisClient.exists(id, (err, resexist) => {
+        if (resexist == 1) {
+            redisClient.hmset(`${id}`, {'nazwa': `${dane.nazwa}`, 'skladniki': `${dane.skladniki}`, 'opis': `${dane.opis}`});
+            console.log(`REDIS: Zaktualizowano przepis - ${dane.nazwa}`);
+        }
+    });
+
+    pgClient.query(`UPDATE przepisy SET nazwa = '${dane.nazwa}', skladniki = '${dane.skladniki}', opis = '${dane.opis}' WHERE id = '${id}';`);
+    console.log(`Postgres: Zaktualizowano przepis - ${dane.nazwa}`);
+
+    res.end();
+});
+
 // curl -d "{\"nazwa\":\"Ciasto truskawkowe\", \"skladniki\":\"maka, jajka, truskawki\", \"opis\":\"wymieszac i upiec\"}" -H "Content-Type: application/json" -X POST localhost:8090/przepisy
-app.post('/przepisy', function (req, res) {
+app.post('/przepisy/dodaj', function (req, res) {
     const dane = req.body;
     const newId = uuidv4();
     const data = new Date().toISOString();
@@ -107,6 +125,22 @@ app.post('/przepisy', function (req, res) {
     pgClient.query(`INSERT INTO przepisy (id, nazwa, skladniki, opis, data) VALUES ('${newId}', '${dane.nazwa}', '${dane.skladniki}', '${dane.opis}', '${data}');`);
     res.send("Dodano przepis")
     console.log(`Dodano przepis - ${dane.nazwa}`);
+    res.end();
+});
+
+app.delete('/przepisy/usun/:id', function (req, res) {
+    const id = req.params.id;
+
+    redisClient.exists(id, (err, resexist) => {
+        if (resexist == 1) {
+            redisClient.del(`${id}`);
+            console.log(`REDIS: Usunięto przepis o id - ${id}`);
+        }
+    });
+
+    pgClient.query(`DELETE FROM przepisy WHERE id = '${id}';`);
+    console.log(`Postgres: Usunięto przepis o id - ${id}`);
+
     res.end();
 });
 

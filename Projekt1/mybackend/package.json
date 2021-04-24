@@ -12,5 +12,12 @@
   "version": "1.0.0",
   "name": "mybackend",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --legacy-watch",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "description": ""
 }

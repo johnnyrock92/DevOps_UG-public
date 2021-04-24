@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 services: 
  myredis:
   container_name: myredis
@@ -7,8 +7,6 @@ services:
   image: redis:alpine
   volumes:
    - redisdata:/data
-  ports:
-   - 8093:6379
 
  mypostgres:
   container_name: mypostgres
@@ -19,9 +17,6 @@ services:
   environment: 
    POSTGRES_PASSWORD: 1qaz2wsx
   image: postgres:alpine
-  # Port tylko dla celów dydaktycznych
-  ports:
-   - 8091:5432
 
  mybackend:
   restart: always
@@ -29,7 +24,7 @@ services:
   networks:
    - mymulticont
   build:
-   dockerfile: Dockerfile.dev
+   dockerfile: Dockerfile
    context: ./mybackend
   ports:
    - 8090:5000
