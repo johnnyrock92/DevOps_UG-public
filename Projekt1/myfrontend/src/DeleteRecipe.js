@@ -4,7 +4,7 @@ import axios from 'axios';
 const DeleteRecipe = (props) => {
 
     const handleDelete = (event) => {
-        axios.delete(`http://localhost:8090/przepisy/usun/${props.id}`)
+        axios.delete(`http://localhost:8000/przepisy/usun/${props.id}`)
             .then(function (response) {
                 console.log(response);
             })

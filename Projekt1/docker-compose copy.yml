@@ -1,0 +1,58 @@
+version: "3"
+services: 
+ myredis:
+  container_name: myredis
+  networks:
+   - mymulticont
+  image: redis:alpine
+  volumes:
+   - redisdata:/data
+  ports:
+   - 8093:6379
+
+ mypostgres:
+  container_name: mypostgres
+  networks: 
+   - mymulticont
+  volumes:
+   - postgresdata:/var/lib/postgresql/data
+  environment: 
+   POSTGRES_PASSWORD: 1qaz2wsx
+  image: postgres:alpine
+  # Port tylko dla celów dydaktycznych
+  ports:
+   - 8091:5432
+
+ mybackend:
+  restart: always
+  container_name: mybackend
+  networks:
+   - mymulticont
+  build:
+   dockerfile: Dockerfile.dev
+   context: ./mybackend
+  ports:
+   - 8090:5000
+  depends_on:
+   - mypostgres
+   - myredis
+  command: ["./wait-for-postgres.sh", "mypostgres", "node", "index.js"]
+  image: januszsch/mybackend:latest
+
+
+
+networks:
+ mymulticont:
+  name: mymulticont
+
+volumes:
+ postgresdata:
+  name: postgresdata
+ redisdata:
+  name: redisdata
+
+# docker-compose --project-name przepisy up
+# docker-compose --project-name przepisy down
+# lub
+# docker-compose up
+# docker-compose down
