@@ -29,7 +29,7 @@ services:
         networks:
             - mymulticont
         build:
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile
             context: ./mybackend
         ports:
             - 8000:5000
