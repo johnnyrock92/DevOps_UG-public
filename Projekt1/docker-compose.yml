@@ -5,8 +5,6 @@ services:
         networks:
             - mymulticont
         image: redis:alpine
-        volumes:
-            - redisdata:/data
         # Port tylko dla celów dydaktycznych
         # ports:
         #   - 6000:6379
