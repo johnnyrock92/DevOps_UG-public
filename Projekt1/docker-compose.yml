@@ -15,7 +15,7 @@ services:
             - mymulticont
         image: postgres:alpine
         volumes:
-            - C:/Users/janus/Documents/GitHub/DevOps_UG-public/Projekt1/postgresdata:/var/lib/postgresql/data
+            - ./postgresdata:/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: 1qaz2wsx
         # Port tylko dla celów dydaktycznych
@@ -47,7 +47,7 @@ services:
             context: ./myfrontend
         volumes:
             - /opt/myapp/node_modules
-            - C:/Users/janus/Documents/GitHub/DevOps_UG-public/Projekt1/myfrontend:/opt/myapp
+            - ./myfrontend:/opt/myapp
         # ports:
         #     - '7070:3000'
         
