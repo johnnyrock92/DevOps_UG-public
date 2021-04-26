@@ -7,6 +7,7 @@ services:
         image: redis:alpine
         volumes:
             - redisdata:/data
+        # Port tylko dla celów dydaktycznych
         # ports:
         #   - 6000:6379
 
@@ -14,32 +15,58 @@ services:
         container_name: mypostgres
         networks: 
             - mymulticont
+        image: postgres:alpine
         volumes:
-            - postgresdata:/var/lib/postgresql/data
+            - C:/Users/janus/Documents/GitHub/DevOps_UG-public/Projekt1/postgresdata:/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: 1qaz2wsx
-        image: postgres:alpine
         # Port tylko dla celów dydaktycznych
         # ports:
         #   - 7000:5432
 
     mybackend:
-        restart: always
         container_name: mybackend
+        restart: always
         networks:
             - mymulticont
         build:
             dockerfile: Dockerfile
             context: ./mybackend
-        ports:
-            - 8000:5000
         depends_on:
             - mypostgres
             - myredis
         command: ["./wait-for-postgres.sh", "mypostgres", "node", "index.js"]
-        image: januszsch/mybackend:latest
+        # Port tylko dla celów dydaktycznych
+        # ports:
+        #     - 8000:5000
 
+    myfrontend:
+        container_name: myfrontend
+        networks:
+            - mymulticont
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./myfrontend
+        volumes:
+            - /opt/myapp/node_modules
+            - C:/Users/janus/Documents/GitHub/DevOps_UG-public/Projekt1/myfrontend:/opt/myapp
+        # ports:
+        #     - '7070:3000'
+        
+        environment:
+            CHOKIDAR_USEPOLLING: 'true'
 
+    mynginx:
+        container_name: mynginx
+        restart: always
+        networks:
+            - mymulticont
+        build:
+            dockerfile: Dockerfile
+            context: ./mynginx
+        ports:
+            - '9000:80'
+        
 
 networks:
     mymulticont:
@@ -51,8 +78,6 @@ volumes:
     redisdata:
         name: redisdata
 
-# docker-compose --project-name przepisy up
-# docker-compose --project-name przepisy down
-# lub
-# docker-compose up
+
+# docker-compose up --build
 # docker-compose down
