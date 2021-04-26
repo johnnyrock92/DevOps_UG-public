@@ -8,7 +8,7 @@ const GetRecipe = (props) => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/przepisy/${props.id}`)
+        axios.get(`api/przepisy/${props.id}`)
             .then(response => setRecipe(response.data))
             .catch(error => console.log(error));
     }, [props.id]);

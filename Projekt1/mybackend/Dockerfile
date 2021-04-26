@@ -14,4 +14,4 @@ RUN yarn install
 COPY ./ ./
 
 # Uruchom polecenie
-CMD ["node", "index.js"]
+CMD yarn start

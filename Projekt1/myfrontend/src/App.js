@@ -1,9 +1,9 @@
 // import './App.css';
 import {useState} from "react";
-import ListRecipes from './ListRecipes';
-import GetRecipe from './GetRecipe';
-import AddRecipe from './AddRecipe';
-import EditRecipe from './EditRecipe';
+import ListRecipes from './components/ListRecipes';
+import GetRecipe from './components/GetRecipe';
+import AddRecipe from './components/AddRecipe';
+import EditRecipe from './components/EditRecipe';
 
 function App() {
 

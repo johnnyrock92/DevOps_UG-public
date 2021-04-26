@@ -11,7 +11,7 @@ COPY ./package.json ./
 RUN yarn install
 
 # Skopiuj zawartość tego katalogu do katalogu roboczego /opt/myapp
-COPY ./ ./
+COPY . .
 
 # Uruchom polecenie
-CMD ["yarn", "build"]
+CMD ["yarn", "start"]

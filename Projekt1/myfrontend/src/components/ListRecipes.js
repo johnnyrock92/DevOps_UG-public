@@ -7,7 +7,7 @@ const ListRecipes = (props) => {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/')
+        axios.get('api/')
             .then(response => setRecipes(response.data))
             .catch(error => console.log(error));
     }, []);
