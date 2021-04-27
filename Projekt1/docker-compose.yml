@@ -34,6 +34,7 @@ services:
             - mypostgres
             - myredis
         command: ["./wait-for-postgres.sh", "mypostgres", "node", "index.js"]
+        image: januszsch/mybackend
         # Port tylko dla celów dydaktycznych
         # ports:
         #     - 8000:5000
@@ -48,11 +49,13 @@ services:
         volumes:
             - /opt/myapp/node_modules
             - ./myfrontend:/opt/myapp
+        environment:
+            CHOKIDAR_USEPOLLING: 'true'
+        image: januszsch/myfrontend
         # ports:
         #     - '7070:3000'
         
-        environment:
-            CHOKIDAR_USEPOLLING: 'true'
+
 
     mynginx:
         container_name: mynginx
@@ -64,6 +67,7 @@ services:
             context: ./mynginx
         ports:
             - '9000:80'
+        image: mynginx
         
 
 networks:
