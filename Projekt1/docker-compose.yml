@@ -77,8 +77,6 @@ networks:
 volumes:
     postgresdata:
         name: postgresdata
-    redisdata:
-        name: redisdata
 
 
 # docker-compose up --build
