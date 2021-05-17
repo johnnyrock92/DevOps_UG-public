@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-nginx-pod
+  name: my-redis-pod
   labels:
-    component: web
+    component: cache
     app: my-app
 
 spec:
   containers:
-    - name: my-nginx
-      image: nginx:alpine
+    - name: my-redis
+      image: redis:alpine
       ports:
         - containerPort: 80
