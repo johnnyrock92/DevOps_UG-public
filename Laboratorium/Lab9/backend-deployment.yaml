@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: backend-deployment
+  labels:
+    component: backend
+    app: myapp
+
+spec:
+  template:
+    metadata:
+      name: backend-pod
+      labels:
+        component: backend
+        app: myapp
+    spec:
+      containers:
+        - name: backend-container
+          image: januszsch/backend-kubernetes-przepisy:latest
+
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+      component: backend
