@@ -28,7 +28,7 @@ const { Pool } = require('pg');
 // process.env.PGUSER
 const pgClient = new Pool({
     user: 'myappuser',
-    password: 'MXFhejJ3c3g=',
+    password: '1qaz2wsx',
     database: 'myappdb',
     host: 'mypostgres-clusterip',
     port: 5432
