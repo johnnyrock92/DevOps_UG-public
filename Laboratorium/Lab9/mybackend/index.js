@@ -25,12 +25,12 @@ const redisClient = redis.createClient({
 // Konfiguracja połączenia do kontenera 'mypostgres'
 
 const { Pool } = require('pg');
-// process.env.PGUSER
+
 const pgClient = new Pool({
-    user: 'myappuser',
-    password: '1qaz2wsx',
-    database: 'myappdb',
-    host: 'mypostgres-clusterip',
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
+    host: process.env.POSTGRES_HOST,
     port: 5432
 });
 
@@ -145,9 +145,8 @@ app.delete('/przepisy/usun/:id', function (req, res) {
 });
 
 const appId = uuidv4();
-const testhost = process.env.PGHOST;
-app.get('/api', (req, res) => {
-    res.send(`[${appId}] Hello from mybackend server ${testhost}`);
+app.get('/test', (req, res) => {
+    res.send(`[${appId}] Hello from mybackend server`);
 });
 
 

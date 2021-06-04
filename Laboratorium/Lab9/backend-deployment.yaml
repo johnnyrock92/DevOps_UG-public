@@ -18,6 +18,30 @@ spec:
       containers:
         - name: backend-container
           image: januszsch/backend-kubernetes-przepisy:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secret
+                  key: PGPASSWORD
+
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-config
+                  key: PGDATABASE
+
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-config
+                  key: PGUSER
+
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mypostgres-config
+                  key: PGHOST
 
   replicas: 1
   selector:
