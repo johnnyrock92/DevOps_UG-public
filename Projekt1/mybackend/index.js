@@ -130,7 +130,7 @@ app.post('/przepisy/dodaj', function (req, res) {
 
 app.delete('/przepisy/usun/:id', function (req, res) {
     const id = req.params.id;
-
+    
     redisClient.exists(id, (err, resexist) => {
         if (resexist == 1) {
             redisClient.del(`${id}`);
