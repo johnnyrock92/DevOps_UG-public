@@ -8,7 +8,7 @@ const EditRecipe = (props) => {
     const [opis, setOpis] = useState("");
     
     useEffect(() => {
-        axios.get(`api/przepisy/${props.id}`)
+        axios.get(`/api/przepisy/${props.id}`)
             .then(response => {
                 setNazwa(response.data.nazwa);
                 setSkladniki(response.data.skladniki);
@@ -20,7 +20,7 @@ const EditRecipe = (props) => {
     const handleSubmit = (event) => {
         console.log(`Dane do aktualizacji ${props.id} ${nazwa} ${skladniki} ${opis}`);
 
-        axios.put(`api/przepisy/edytuj/${props.id}`, {
+        axios.put(`/api/przepisy/edytuj/${props.id}`, {
             nazwa: nazwa,
             skladniki: skladniki,
             opis: opis

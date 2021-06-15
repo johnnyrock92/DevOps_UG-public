@@ -12,7 +12,7 @@ const AddRecipe = (props) => {
     const handleSubmit = (event) => {
         console.log(`Dane do wysłania ${nazwa} ${skladniki} ${opis}`);
 
-        axios.post('api/przepisy/dodaj', {
+        axios.post('/api/przepisy/dodaj', {
             nazwa: nazwa,
             skladniki: skladniki,
             opis: opis

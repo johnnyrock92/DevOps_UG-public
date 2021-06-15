@@ -1,5 +1,5 @@
-# Zaciągnij obraz alpine z wbudowanym node
-FROM node:alpine
+# Zaciągnij obraz alpine z wbudowanym node i używaj później pod nazwą: mybuild
+FROM node:alpine as mybuild
 
 # Ustaw katalog roboczy w /opt/myapp
 WORKDIR /opt/myapp
@@ -13,5 +13,11 @@ RUN yarn install
 # Skopiuj zawartość tego katalogu do katalogu roboczego /opt/myapp
 COPY ./ ./
 
-# Uruchom polecenie
-CMD yarn start
+# Uruchom polecenie generujące wersję produkcyjną frontendu
+CMD yarn build
+
+
+
+FROM nginx
+
+COPY --from=mybuild /opt/myapp/build /usr/share/nginx/html
