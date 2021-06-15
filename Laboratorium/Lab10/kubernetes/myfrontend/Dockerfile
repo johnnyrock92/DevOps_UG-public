@@ -1,3 +1,17 @@
-FROM nginx:alpine
+FROM node:alpine as mybuild
 
-COPY ./index.html /usr/share/nginx/html/index.html
+WORKDIR /opt/app
+
+COPY ./package.json ./
+
+RUN yarn install
+
+COPY . .
+
+RUN yarn build
+
+
+
+FROM nginx
+
+COPY --from=mybuild /opt/app/build /usr/share/nginx/html

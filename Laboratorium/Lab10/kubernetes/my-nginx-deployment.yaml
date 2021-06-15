@@ -18,7 +18,7 @@ spec:
         - name: my-nginx-container
           image: januszsch/myfrontend-nginx:latest
   
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: my-app
