@@ -4,7 +4,7 @@ import axios from 'axios';
 const DeleteRecipe = (props) => {
 
     const handleDelete = (event) => {
-        axios.delete(`/api/przepisy/usun/${props.id}`)
+        axios.delete(`api/przepisy/usun/${props.id}`)
             .then(function (response) {
                 console.log(response);
             })
@@ -18,7 +18,7 @@ const DeleteRecipe = (props) => {
     return (
         <>
             
-                <button type="submit" className="btn btn-danger" onClick={handleDelete}>Usuń (DELETE)</button>
+                <button type="submit" className="btn btn-sm btn-brown" onClick={handleDelete}>Usuń</button>
                 {/* <input type='submit' value='Usuń (DELETE)' onClick={handleDelete} /> */}
             
         </>

@@ -7,7 +7,7 @@ const ListRecipes = (props) => {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        axios.get('/api')
+        axios.get('api/')
             .then(response => setRecipes(response.data))
             .catch(error => console.log(error));
     }, []);
@@ -24,7 +24,7 @@ const ListRecipes = (props) => {
     const DetailButton = (props) => {
         return (
             <>
-                <button type="button" className="btn btn-primary" onClick={changeParentID} name={props.id}>Szczegóły</button>
+                <button type="button" className="btn btn-sm btn-brown" onClick={changeParentID} name={props.id}>Szczegóły</button>
             </>
         ) 
     }
@@ -32,7 +32,7 @@ const ListRecipes = (props) => {
     const EditButton = (props) => {
         return (
             <>
-                <button type="button" className="btn btn-warning" onClick={changeParentIDEdit} name={props.id}>Edytuj</button>
+                <button type="button" className="btn btn-sm btn-brown" onClick={changeParentIDEdit} name={props.id}>Edytuj</button>
             </>
         ) 
     }
@@ -61,8 +61,8 @@ const ListRecipes = (props) => {
 
     return (
         <>
-        <h2>Przepisy kulinarne (GET)</h2>
-        <table className="table table-bordered table-warning border-primary">
+        <h5>Przepisy kulinarne (GET)</h5>
+        <table className="table border-brown">
             <thead>
                 <tr>
                     <th>ID</th>
