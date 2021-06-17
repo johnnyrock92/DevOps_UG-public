@@ -39,7 +39,7 @@ const EditRecipe = (props) => {
     return (
         <>
         <h5 className="card-title">Edytuj przepis kulinarny (PUT)</h5>
-        <h6 className="card-subtitle mb-2 text-muted">ID: {props.id}</h6>
+        <h6 className="card-subtitle mb-2">ID: {props.id}</h6>
         <form>
                 <div className="mb-3">
                     <label className="form-label">Nazwa:</label>
@@ -54,7 +54,7 @@ const EditRecipe = (props) => {
                     <textarea className="form-control" placeholder='Opis' value={opis} onChange={event => setOpis(event.target.value)} rows="3"></textarea>
                 </div>
                 
-                <input type='submit' className="btn btn-secondary" value='Aktualizuj przepis' onClick={handleSubmit} />
+                <input type='submit' className="btn btn-sm btn-brown" value='Aktualizuj przepis' onClick={handleSubmit} />
                 
             </form>
         </>

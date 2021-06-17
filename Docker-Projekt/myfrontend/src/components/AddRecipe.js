@@ -47,7 +47,7 @@ const AddRecipe = (props) => {
                     <textarea className="form-control" placeholder='Opis' value={opis} onChange={event => setOpis(event.target.value)} rows="3"></textarea>
                 </div>
                 
-                <input type='submit' className="btn btn-light" value='Dodaj przepis' onClick={handleSubmit} />
+                <input type='submit' className="btn btn-sm btn-brown" value='Dodaj przepis' onClick={handleSubmit} />
             </form>
          
         </>

@@ -115,5 +115,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-Projekt1/postgresdata
+*/postgresdata
 Laboratorium/postgresdata
