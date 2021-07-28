@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment2
+  labels:
+    component: frontend
+    app: myapp
+
+spec:
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        component: frontend
+        app: myapp
+    spec:
+      containers:
+        - name: nginx-container
+          image: januszsch/frontend-nginx-kubernetes2:latest
+
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+      component: frontend

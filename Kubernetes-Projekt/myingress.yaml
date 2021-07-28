@@ -25,3 +25,18 @@ spec:
                 name: nginx-clusterip
                 port:
                   number: 80
+
+          - path: /api2/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-clusterip2
+                port:
+                  number: 5001
+          - path: /app/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-clusterip
+                port:
+                  number: 80
